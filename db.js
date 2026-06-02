@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const MONGO_URI = 'mongodb+srv://siamtiers:Jnp3e9PCup0eZYLH@cluster0.ukp3d02.mongodb.net'; // change to your URI
+const MONGO_URI = 'mongodb+srv://67:password@cluster0.ukp3d02.mongodb.net'; // update since i forgot lol it wont work btw i rotated the password
 
 await mongoose.connect(MONGO_URI);
 console.log('✅ MongoDB connected');
