@@ -13,6 +13,7 @@ export default {
   testerRoleId:           '1489537462467559551',
   ProtesterRoleId:        '1489537462467559552',
   BanlistRoleId  :        '1489537461729104015',
+  adminRoleId:            '1489537462467559556',
   resultWebhook:          'https://discord.com/api/webhooks/1503311278100189205/UWU',
   ticketCategoryId:         '1489537465654972440',
   waitlistChannelId: {
