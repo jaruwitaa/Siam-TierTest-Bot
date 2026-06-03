@@ -52,12 +52,14 @@ export default function handleInteraction(client) {
     if (interaction.isButton()) {
       // 🔗 LINK ACCOUNT
       if (interaction.customId === 'link_account') {
-        if (userDoc?.uuid) {
-          return interaction.reply({
-            content: `❌ คุณเชื่อมบัญชีแล้ว: \`${userDoc.mcname}\`\n⚠️ ไม่สามารถเปลี่ยนบัญชีได้`,
-            flags: 64
-          });
-        }
+        
+        //if (userDoc?.uuid) {
+        //  return interaction.reply({
+        //    content: `❌ คุณเชื่อมบัญชีแล้ว: \`${userDoc.mcname}\`\n⚠️ ไม่สามารถเปลี่ยนบัญชีได้`,
+        //    flags: 64
+        //  });
+        //}
+        // -- Im changing these -
 
         const pending = getPending();
         const existingEntry = Object.entries(pending).find(([, d]) => d.discordId === userId);
