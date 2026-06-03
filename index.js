@@ -672,114 +672,61 @@ app.get(
 // ========================
 // 🔗 VERIFY
 // ========================
+app.post('/api/verify', async (req, res) => {
+  const { mcname, uuid, code } = req.body;
+  if (!mcname || !uuid || !code) return res.status(400).json({ error: 'Missing fields' });
 
-app.post(
-  '/api/verify',
-
-  async (req, res) => {
-
-    const {
-      mcname,
-      uuid,
-      code
-    } = req.body;
-
-    if (
-      !mcname ||
-      !uuid ||
-      !code
-    ) {
-
-      return res.status(400)
-        .json({
-          error:
-            'Missing fields'
-        });
-    }
-
-    const pending =
-      getPending();
-
-    const entry =
-      pending[code];
-
-    if (!entry) {
-
-      return res.status(404)
-        .json({
-          error:
-            'Invalid or expired code'
-        });
-    }
-
-    if (
-      Date.now() >
-      entry.expires
-    ) {
-
-      deletePending(code);
-
-      return res.status(410)
-        .json({
-          error:
-            'Code expired'
-        });
-    }
-
-    const existing =
-      await Username.findOne({
-        uuid
-      });
-
-    if (existing) {
-
-      return res.status(409)
-        .json({
-          error:
-            'Minecraft account already linked'
-        });
-    }
-
-    await Username
-      .findOneAndUpdate(
-
-        {
-          discordId:
-            entry.discordId
-        },
-
-        {
-          discordId:
-            entry.discordId,
-
-          mcname,
-          uuid,
-
-          linkedAt:
-            new Date()
-              .toISOString()
-        },
-
-        {
-          upsert: true,
-          returnDocument:
-            'after'
-        }
-      );
-
+  const pending = getPending();
+  const entry   = pending[code];
+  if (!entry) return res.status(404).json({ error: 'Invalid or expired code' });
+  if (Date.now() > entry.expires) {
     deletePending(code);
-
-    return res.json({
-
-      success: true,
-      mcname,
-      uuid,
-
-      discordId:
-        entry.discordId
-    });
+    return res.status(410).json({ error: 'Code expired' });
   }
-);
+
+  // Check UUID linked to a DIFFERENT Discord account
+  const existingUuid = await Username.findOne({ uuid });
+  if (existingUuid && existingUuid.discordId !== entry.discordId) {
+    return res.status(409).json({ error: 'Minecraft account already linked to another Discord' });
+  }
+
+  // Get old username doc
+  const oldDoc    = await Username.findOne({ discordId: entry.discordId });
+  const oldMcname = oldDoc?.mcname;
+
+  // If relinking to a different mcname
+  if (oldMcname && oldMcname !== mcname) {
+    const newMcnamePlayer = await Player.findOne({ mcname });
+
+    if (newMcnamePlayer) {
+      // Block if player doc belongs to a different Discord
+      if (newMcnamePlayer.discordId !== entry.discordId) {
+        return res.status(409).json({ error: 'This Minecraft account already has tier data linked to another profile' });
+      }
+      // Same Discord — just update uuid
+      await Player.findOneAndUpdate(
+        { mcname },
+        { $set: { uuid, discordId: entry.discordId } }
+      );
+    } else {
+      // No existing player doc — rename old one to new mcname
+      await Player.findOneAndUpdate(
+        { mcname: oldMcname },
+        { $set: { mcname, uuid, discordId: entry.discordId } }
+      );
+    }
+  }
+
+  // Update username
+  await Username.findOneAndUpdate(
+    { discordId: entry.discordId },
+    { discordId: entry.discordId, mcname, uuid, linkedAt: new Date().toISOString() },
+    { upsert: true, returnDocument: 'after' }
+  );
+
+  deletePending(code);
+  return res.json({ success: true, mcname, uuid, discordId: entry.discordId });
+});
 
 // ========================
 // START API
