@@ -61,6 +61,10 @@ export default function handleInteraction(client) {
         //}
         // -- Im changing these -
 
+        if (interaction.member.roles.cache.has(config.BanlistRoleId)) {
+          return interaction.reply({ content: '❌ คุณถูกแบนอยู่', flags: 64 });
+        }
+
         const pending = getPending();
         const existingEntry = Object.entries(pending).find(([, d]) => d.discordId === userId);
         if (existingEntry) {
