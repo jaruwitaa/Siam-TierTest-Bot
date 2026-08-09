@@ -96,4 +96,4 @@ Thank you to everyone who played, tested, helped moderate, and supported Siam Ne
 
 ## License
 
-No license is currently declared. Ask the repository owner before redistributing or deploying this code.
+You are free to use, modify, and reuse this project. Credit to **Jaruwit / Siam Network** is appreciated, but it is not required.
