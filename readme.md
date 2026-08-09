@@ -92,6 +92,8 @@ The repository also contains old server-specific Discord IDs and configuration. 
 
 Siam Network and Siam PVP are permanently closed, and this bot is no longer maintained or supported. Existing commands, roles, queues, tickets, and result systems should be considered inactive. No uptime, data availability, account-linking, or tier-test service is guaranteed.
 
+The archived tier list remains available at [pvp.siam-net.work](https://pvp.siam-net.work/). It will receive no further updates and is expected to remain online until the domain expires.
+
 Thank you to everyone who played, tested, helped moderate, and supported Siam Network and Siam PVP.
 
 ## License
