@@ -9,7 +9,7 @@ export default {
   // ========================
   // 📡 CHANNELS & ROLES
   // ========================
-  requestChannelId:       '1489537466158284990',
+  // requestChannelId:       '1489537466158284990', -- UNUSED
   testerRoleId:           '1489537462467559551',
   ProtesterRoleId:        '1489537462467559552',
   BanlistRoleId  :        '1489537461729104015',
@@ -48,7 +48,7 @@ export default {
   // ========================
   // 🌍 REGIONS
   // ========================
-  regions: ['TH'],
+  // regions: ['TH'], -- UNUSED
     
   TesterRoles: {
       NETHPOT: "1489537462467559550",
@@ -190,20 +190,21 @@ export default {
       LT5: '1503714400375279717'
     },
   },
-
+  // UNUSED
   // ========================
   // 🏆 TIER CHOICES (for slash command options)
   // ========================
-  tierChoices: [
-    { name: 'HT1', value: 'HT1' },
-    { name: 'HT2', value: 'HT2' },
-    { name: 'HT3', value: 'HT3' },
-    { name: 'HT4', value: 'HT4' },
-    { name: 'HT5', value: 'HT5' },
-    { name: 'LT1', value: 'LT1' },
-    { name: 'LT2', value: 'LT2' },
-    { name: 'LT3', value: 'LT3' },
-    { name: 'LT4', value: 'LT4' },
-    { name: 'LT5', value: 'LT5' },
-  ],
+  // tierChoices: [
+  //   { name: 'HT1', value: 'HT1' },
+  //   { name: 'HT2', value: 'HT2' },
+  //   { name: 'HT3', value: 'HT3' },
+  //   { name: 'HT4', value: 'HT4' },
+  //   { name: 'HT5', value: 'HT5' },
+  //   { name: 'LT1', value: 'LT1' },
+  //   { name: 'LT2', value: 'LT2' },
+  //   { name: 'LT3', value: 'LT3' },
+  //   { name: 'LT4', value: 'LT4' },
+  //   { name: 'LT5', value: 'LT5' },
+  // ],
+  // ========================
 };
