@@ -198,7 +198,7 @@ This endpoint is used by the companion [SiamVerify](https://github.com/jaruwitaa
 
 ### Configure SiamVerify
 
-1. Build or download the SiamVerify plugin for Paper 1.21.11.
+1. Build or download the SiamVerify plugin for Paper 1.21.1 or a compatible server.
 2. Copy the plugin JAR into the Minecraft server's `plugins/` directory.
 3. Start the server once so it creates `plugins/SiamVerify/config.yml`.
 4. Set the API URL to the address where the bot's Express API is reachable:
